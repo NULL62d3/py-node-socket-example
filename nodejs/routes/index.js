@@ -58,10 +58,12 @@ router.post('/', (req, res, next) => {
     } else {
         console.log('invalid request.')
     }
+    console.log('sending to... ', address)
     console.log('event = ', event);
     console.log('arg = ', arg);
     socket.emit(event, arg);
     res.redirect('/');
+    console.log('done!')
 });
 
 module.exports = router;
