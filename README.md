@@ -27,7 +27,7 @@ Now a server is running on your local network.
 And open another terminal, then,
 
     cd nodejs
-    npm app.js
+    node app.js
 
 Now you can access with your browser.  
 Enjoy!

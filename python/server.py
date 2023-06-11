@@ -1,8 +1,6 @@
 import time, signal, threading
 import socketio, eventlet
 
-import json
-
 global mainclass
 
 class Calc:
