@@ -73,7 +73,8 @@ class ThreadServer:
         self.Namespace  = SocketInterface(namespace)
         self.sio_.register_namespace(self.Namespace)
     def start(self):
-        eventlet.wsgi.server(eventlet.listen(('localhost', 8000)), self.app_)
+        host = '127.0.0.1'
+        eventlet.wsgi.server(eventlet.listen((host, 8000)), self.app_)
     def run(self):
         p = threading.Thread(target=self.start)
         p.setDaemon(True)
