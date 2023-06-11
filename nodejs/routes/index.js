@@ -1,38 +1,36 @@
 const express = require('express');
-const router = express.Router();
-
 const io = require('socket.io-client');
 
+const router = express.Router();
 const title = 'py-node-socket-test'
-
 
 // Address for communicating with python server.
 const host = '127.0.0.1';
 const port = Number(process.env.PORT || 8000);
 const address = 'http://' + host + ':' + port + '/test';
+
 const socket = io.connect(address);
 
+// global valiable
+let num = 0
 
 // Load home page
 router.get('/', function(req, res, next){
+    // When request received
+    let userAgent, isSmartphone;
+
     //Get user agent
-    let userAgent = req.headers['user-agent'].toLowerCase();
-    console.log("userAgent = ", userAgent);
+    userAgent = req.headers['user-agent'].toLowerCase();
 
     // 接続元がスマホかそれ以外か判定
-    let isSmartphone = false;
-    if(userAgent.indexOf("android") != -1
-        || userAgent.indexOf("iphone") != -1
-        || userAgent.indexOf("ipod") != -1
-    ){
-        isSmartphone = true;
-        console.log('client is smartphone')
-    }
+    isSmartphone = judgeSmartphone(userAgent);
 
     // 表示するページ出し分け
     if(isSmartphone){
+        console.log('client is smartphone')
         callIndex(res, 'index_m');
     } else{
+        console.log('client is not smartphone')
         callIndex(res, 'index');
     }
 });
@@ -41,37 +39,34 @@ router.get('/', function(req, res, next){
 // Post
 router.post('/', (req, res, next) => {
     console.log("req.body = ", req.body);
-    var event, arg
+    let eventName, arg
 
     if(req.body.countup){
-        event = 'calc';
+        eventName = 'calc';
         arg = 'countup';
 
     } else if(req.body.countdown) {
-        event = 'calc';
+        eventName = 'calc';
         arg = 'countdown';
 
     } else if(req.body.senddict){
         // dictでも送信できる
-        event = 'dict_msg';
+        eventName = 'dict_msg';
         arg = {'1':1, '2':2};
     } else {
         console.log('invalid request.')
     }
     console.log('sending to... ', address)
-    console.log('event = ', event);
+    console.log('eventName = ', eventName);
     console.log('arg = ', arg);
-    socket.emit(event, arg);
+    socket.emit(eventName, arg);
     res.redirect('/');
     console.log('done!')
 });
 
 module.exports = router;
 
-// global valiable
-let num = 0
-
-// なんでも受け取る
+// なんでも受け付ける
 socket.onAny((eventName, arg) => {
     console.log('eventName = ', eventName);
     console.log('arg = ', arg);
@@ -86,6 +81,11 @@ socket.onAny((eventName, arg) => {
     }
 })
 
+
+///////////////////////////////////
+//  Function
+///////////////////////////////////
+
 function callIndex(res, index){
     // index: string index file to call
     res.render(index,{
@@ -95,3 +95,13 @@ function callIndex(res, index){
 }
 
 
+function judgeSmartphone(userAgent){
+    let isSmartphone = false;
+    if(userAgent.indexOf("android") != -1
+        || userAgent.indexOf("iphone") != -1
+        || userAgent.indexOf("ipod") != -1
+    ){
+        isSmartphone = true;
+    }
+    return isSmartphone;
+}
