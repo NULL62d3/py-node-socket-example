@@ -3,11 +3,23 @@ extends components/_layout
 block content
 
   body
+
     br
-    a num = #{num}
-    br
+    h2 Git repository here! : 
+      a(href="https://github.com/NULL62d3/py-node-socket-test") py-node-socket-test 
+
+    hr
+
+    h2 Click button!
+    h3 num = #{num}
+
     form(action="/" method="post")
 
-      input(type="submit" id="btn" name = "countup" value="countup" class="calcBtn")
-      input(type="submit" id="btn" name = "countdown" value="countdown" class="calcBtn")
-      input(type="submit" id="btn" name = "senddict" value="senddict" class="calcBtn")
+      input(type="submit" id="id1" name = "countup" value="countup" class="class1")
+      input(type="submit" id="id2" name = "countdown" value="countdown" class="class1")
+      br
+      br
+      input(type="submit" id="id3" name = "senddict" value="senddict" class="class1")
+    br
+
+    hr
