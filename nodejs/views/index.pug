@@ -1,0 +1,13 @@
+extends components/_layout
+
+block content
+
+  body
+    br
+    a num = #{num}
+    br
+    form(action="/" method="post")
+
+      input(type="submit" id="btn" name = "countup" value="countup" class="calcBtn")
+      input(type="submit" id="btn" name = "countdown" value="countdown" class="calcBtn")
+      input(type="submit" id="btn" name = "senddict" value="senddict" class="calcBtn")
