@@ -45,7 +45,7 @@ class SocketInterface(socketio.Namespace):
         print('Disconnected.\n')
 
     def on_calc(self, sid, msg):
-        # clientから 'client_to_server' イベントが送られてきた時の処理
+        # clientから 'calc' イベントが送られてきた時の処理
         global mainclass
         print(msg + ' received!\n')
         print('sid = ', sid)
