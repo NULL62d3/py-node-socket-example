@@ -7,7 +7,8 @@ const title = 'py-node-socket-test'
 
 
 // Address for communicating with python server.
-const host = 'localhost';
+// const host = 'localhost';
+const host = '127.0.0.1';
 const port = Number(process.env.PORT || 8000);
 const address = 'http://' + host + ':' + port + '/test';
 const socket = io.connect(address);
