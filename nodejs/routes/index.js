@@ -2,14 +2,14 @@ const express = require('express');
 const io = require('socket.io-client');
 
 const router = express.Router();
-const title = 'py-node-socket-test'
+const title = 'py-node-socket-example'
 
 // Address for communicating with python server.
 const host = '127.0.0.1';
 const port = Number(process.env.PORT || 8000);
 const address = 'http://' + host + ':' + port + '/test';
 
-const socket = io.connect(address);
+const client = io.connect(address);
 
 // global valiable
 let num = 0
@@ -59,7 +59,7 @@ router.post('/', (req, res, next) => {
     console.log('sending to... ', address)
     console.log('eventName = ', eventName);
     console.log('arg = ', arg);
-    socket.emit(eventName, arg);
+    client.emit(eventName, arg);
     res.redirect('/');
     console.log('done!')
 });
@@ -67,7 +67,7 @@ router.post('/', (req, res, next) => {
 module.exports = router;
 
 // なんでも受け付ける
-socket.onAny((eventName, arg) => {
+client.onAny((eventName, arg) => {
     console.log('eventName = ', eventName);
     console.log('arg = ', arg);
 
