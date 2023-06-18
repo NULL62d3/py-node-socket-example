@@ -1,4 +1,4 @@
-extends components_m/_layout
+extends components/_layout_m
 
 block content
 
@@ -19,7 +19,15 @@ block content
       input(type="submit" id="id2" name = "countdown" value="countdown" class="class1")
       br
       br
+      a dict : {
+      input(type="string" name="key" placeholder="key" class="input" value=key)
+      a } : {
+      input(type="string" name="val" placeholder="val" class="input" value=val)
+      a }
       input(type="submit" id="id3" name = "senddict" value="senddict" class="class1")
     br
+    a Received message ........... #{received_msg}
+    br
+    a Received message type ... #{msg_type}
 
     hr

@@ -20,6 +20,13 @@ body {
     margin: 5px;
 }
 
+.input{
+    width: 40px;
+    text-align: center;
+    align-items: center;
+    background-color: lightyellow;
+}
+
 
 /* 個別のボタンidに対してスタイル設定 */
 #id3{

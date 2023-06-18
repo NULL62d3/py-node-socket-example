@@ -13,6 +13,9 @@ const client = io.connect(address);
 
 // global valiable
 let num = 0
+let key = 'key'
+let val = 'val'
+let received_msg = ""
 
 // Load home page
 router.get('/', function(req, res, next){
@@ -22,10 +25,10 @@ router.get('/', function(req, res, next){
     //Get user agent
     userAgent = req.headers['user-agent'].toLowerCase();
 
-    // 接続元がスマホかそれ以外か判定
+    // Judge smartphone or another device.
     isSmartphone = judgeSmartphone(userAgent);
 
-    // 表示するページ出し分け
+    // Show different pages for smartphone and another.
     if(isSmartphone){
         console.log('client is smartphone')
         callIndex(res, 'index_m');
@@ -39,46 +42,69 @@ router.get('/', function(req, res, next){
 // Post
 router.post('/', (req, res, next) => {
     console.log("req.body = ", req.body);
-    let eventName, arg
+    let eventName, msg
 
+    // on_calc() is called in server.py by sending 'calc' msg.
     if(req.body.countup){
         eventName = 'calc';
-        arg = 'countup';
+        msg = 'countup';
 
     } else if(req.body.countdown) {
         eventName = 'calc';
-        arg = 'countdown';
+        msg = 'countdown';
 
     } else if(req.body.senddict){
-        // dictでも送信できる
+        // You can send dict object
+        key = req.body.key
+        val = req.body.val
         eventName = 'dict_msg';
-        arg = {'1':1, '2':2};
+        msg = {[key]:val};
     } else {
-        console.log('invalid request.')
+        console.log('invalid request.');
     }
-    console.log('sending to... ', address)
+    
+    console.log('************************')
+    console.log('sending to... ', address);
     console.log('eventName = ', eventName);
-    console.log('arg = ', arg);
-    client.emit(eventName, arg);
+    console.log('arg = ', msg);
+    client.emit(eventName, msg);
     res.redirect('/');
     console.log('done!')
 });
 
 module.exports = router;
 
-// なんでも受け付ける
-client.onAny((eventName, arg) => {
+// Receive any messages from server.py
+client.onAny((eventName, msg) => {
+    console.log('************************')
+    console.log('Received!')
     console.log('eventName = ', eventName);
-    console.log('arg = ', arg);
-
-    // pythonから送信されたeventnameで処理を分類
+    console.log('arg = ', msg);
+    received_msg = ''
+    msg_type = typeof(msg)
+    
+    // Divide process by eventname sent from server.py
     if(eventName == 'result') {
-        console.log(arg + ' received!')
-        num = Number(arg)
+        console.log(msg + ' received!')
+        num = msg
 
-    } else if (eventName == 'test') {
-        console.log('test')
+    } else if (eventName == 'dict_msg') {
+        // You can receive dict type
+        console.log('received!');
+        msg = JSON.stringify(msg);
+
+    } else if (eventName == 'list_msg'){
+        // You can receive Array type
+        if (Array.isArray(msg)){
+            msg_type = 'Array';
+        }
+    } else {
+        console.log('received unknown msg');
     }
+    console.log('msg ... ', msg); 
+    console.log('msg type ... ', typeof(msg));
+    received_msg = msg;
+    
 })
 
 
@@ -91,6 +117,10 @@ function callIndex(res, index){
     res.render(index,{
       title: title,
       num: num,
+      key: key,
+      val: val,
+      msg_type: msg_type,
+      received_msg: received_msg,
     });
 }
 
@@ -104,4 +134,18 @@ function judgeSmartphone(userAgent){
         isSmartphone = true;
     }
     return isSmartphone;
+}
+
+function isObject(value) {
+    return value !== null && typeof value === 'object'
+  }
+
+function isJsonObject(obj) {
+    try {
+        d = JSON.stringify(obj)
+        JSON.parse(d);
+    } catch (error) {
+        return false;
+    }
+    return true;
 }

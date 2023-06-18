@@ -35,34 +35,32 @@ class MainClass:
 
 class SocketInterface(socketio.Namespace):
     def on_connect(self, sid, environ):
-        # clientが接続した時の処理
+        # When connected to client.
         num = mainclass.get_num()
         self.emit('response', str(num))
         print('Connected.\n')
 
     def on_disconnect(self, sid):
-        # clientとの接続が切れた時の処理
+        # When disconnected from client.
         print('Disconnected.\n')
 
     def on_calc(self, sid, msg):
-        # clientから 'calc' イベントが送られてきた時の処理
+        # When 'calc' event is sent.
         global mainclass
         print(msg + ' received!\n')
-        print('sid = ', sid)
         num = mainclass.calculation(msg)
 
         print('number = ', num)
         eventName = 'result'
-        arg = str(num)
+        arg = num
         self.emit(eventName, arg)
     
     def on_dict_msg(self, sid, msg):
-        # dictも受け取れる
+        # You can send dict object.
         print('received!')
         print(msg)
-        eventName = 'test'
-        arg = 'test'
-        self.emit(eventName, arg)
+        eventName = 'dict_msg'
+        self.emit(eventName, msg)
 
 
     
