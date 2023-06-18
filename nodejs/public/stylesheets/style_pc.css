@@ -1,9 +1,6 @@
 /* Settings for PC. */
 /* This setting is overwrited on style_default.css */
 
-body {
-
-}
 
 .button{
     height: 40px;
@@ -13,10 +10,3 @@ body {
     margin: 5px;
 }
 
-.input{
-
-}
-
-#id3{
-
-}
