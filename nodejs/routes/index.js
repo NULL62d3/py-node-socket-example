@@ -69,7 +69,6 @@ router.post('/', (req, res, next) => {
     console.log('arg = ', msg);
     client.emit(eventName, msg);
     res.redirect('/');
-    console.log('done!')
 });
 
 module.exports = router;
@@ -91,8 +90,12 @@ client.onAny((eventName, msg) => {
     } else if (eventName == 'dict_msg') {
         // You can receive dict type
         console.log('received!');
-        msg = JSON.stringify(msg);
-
+        if (isObject(msg)){
+            msg = JSON.stringify(msg);
+        } else {
+            console.log('Invalid type of msg!');
+            console.log('The msg type must be object, not ', typeof(msg));
+        }
     } else if (eventName == 'list_msg'){
         // You can receive Array type
         if (Array.isArray(msg)){
@@ -138,14 +141,5 @@ function judgeSmartphone(userAgent){
 
 function isObject(value) {
     return value !== null && typeof value === 'object'
-  }
-
-function isJsonObject(obj) {
-    try {
-        d = JSON.stringify(obj)
-        JSON.parse(d);
-    } catch (error) {
-        return false;
-    }
-    return true;
 }
+

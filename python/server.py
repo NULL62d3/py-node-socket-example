@@ -62,7 +62,6 @@ class SocketInterface(socketio.Namespace):
         eventName = 'dict_msg'
         self.emit(eventName, msg)
 
-
     
 class ThreadServer:
     def __init__(self, namespace):
@@ -86,6 +85,6 @@ if __name__ == '__main__':
     thread_server = ThreadServer('/test')
     thread_server.run()
 
+    # You can kill this process by Ctl + C
     while True:
         time.sleep(5)
-    exit()

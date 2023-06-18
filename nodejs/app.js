@@ -47,7 +47,3 @@ server.listen(port, hostname, () => {
   console.log(`Server running at http://${host}:${port}/`);
 });
 
-server.listen(port, function() {
-  console.log('Listening on ' + port);
-});
-
