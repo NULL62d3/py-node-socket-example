@@ -1,7 +1,6 @@
+/* Default shared settings (for moble and pc) */
 
-/* PC向け */
-
-/* body全体のデフォルトスタイル設定 */
+/* Settings for all in body */
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -11,21 +10,20 @@ body {
     background : rgb(175, 170, 164);
 }
 
-/* クラスでまとめてスタイル設定 */
-.class1{
+/* Setting for Class "class1" */
+.button{
     box-sizing:border-box;
-    font: 18px Helvetica;
-    height: 40px;
-    width: 100px;
+    
     cursor: pointer;
     text-align: center;
     align-items: center;
+
     border-width: 2px;
     border-color: black;
     color : white;
     background : gray;
-    border-radius : 10px;
-    margin: 5px;
+    
+    
 }
 
 .input{

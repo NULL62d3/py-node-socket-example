@@ -34,7 +34,7 @@ router.get('/', function(req, res, next){
         callIndex(res, 'index_m');
     } else{
         console.log('client is not smartphone')
-        callIndex(res, 'index');
+        callIndex(res, 'index_pc');
     }
 });
 

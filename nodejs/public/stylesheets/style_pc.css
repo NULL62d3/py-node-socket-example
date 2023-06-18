@@ -1,0 +1,22 @@
+/* Settings for PC. */
+/* This setting is overwrited on style_default.css */
+
+body {
+
+}
+
+.button{
+    height: 40px;
+    width: 100px;
+    font: 18px Helvetica;
+    border-radius : 10px;
+    margin: 5px;
+}
+
+.input{
+
+}
+
+#id3{
+
+}

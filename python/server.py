@@ -85,6 +85,6 @@ if __name__ == '__main__':
     thread_server = ThreadServer('/test')
     thread_server.run()
 
-    # You can kill this process by Ctl + C
+    # You can kill this process by [Ctl]+[C]
     while True:
         time.sleep(5)

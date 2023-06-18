@@ -1,37 +1,21 @@
-/* モバイル向け */
+/* Settings for smartphone. */
+/* This setting is overwrited on style_default.css */
 
-
-/* body全体のデフォルトスタイル設定 */
 body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    /* text color */
-    color : black;
-    /* background color */
-    background : rgb(175, 170, 164);
+
 }
 
-/* クラスでまとめてスタイル設定 */
-.class1{
-    border-width: 2px;
-    border-color: black;
-    color : white;
-    background : gray;
-    margin: 5px;
+.button{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .input{
-    width: 40px;
-    text-align: center;
-    align-items: center;
-    background-color: lightyellow;
+
 }
 
 
-/* 個別のボタンidに対してスタイル設定 */
 #id3{
     width: 100px;
-    border-color: yellow;
-    color : yellow;
-    background : black;
+    margin-top: 20px;
 }
