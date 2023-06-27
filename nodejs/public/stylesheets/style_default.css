@@ -30,10 +30,19 @@ body {
     width: 40px;
     text-align: center;
     align-items: center;
-    background-color: lightyellow;
+    /* When some values are contained */
+    background-color: whitesmoke;
+    /* When blank */
+    &:placeholder-shown{
+        background-color: red;
+    }
+    /* When focused */
+    &:focus{
+        background-color: orange;
+    }
 }
 
-/* 個別のボタンidに対してスタイル設定 */
+/* Set style on indivisual objects. */
 #id3{
     width: 120px;
     border-color: yellow;

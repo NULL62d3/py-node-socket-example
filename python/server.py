@@ -37,7 +37,8 @@ class SocketInterface(socketio.Namespace):
     def on_connect(self, sid, environ):
         # When connected to client.
         num = mainclass.get_num()
-        self.emit('response', str(num))
+        eventName = 'result'
+        self.emit(eventName, num)
         print('Connected.\n')
 
     def on_disconnect(self, sid):

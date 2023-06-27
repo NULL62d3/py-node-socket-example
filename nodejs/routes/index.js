@@ -21,6 +21,7 @@ let received_msg = ""
 router.get('/', function(req, res, next){
     // When request received
     let userAgent, isSmartphone;
+    console.log("router.get")
 
     //Get user agent
     userAgent = req.headers['user-agent'].toLowerCase();
@@ -117,14 +118,16 @@ client.onAny((eventName, msg) => {
 
 function callIndex(res, index){
     // index: string index file to call
-    res.render(index,{
-      title: title,
-      num: num,
-      key: key,
-      val: val,
-      msg_type: msg_type,
-      received_msg: received_msg,
-    });
+    res.render(index,
+        {
+        title: title,
+        num: num,
+        key: key,
+        val: val,
+        msg_type: msg_type,
+        received_msg: received_msg,
+        }
+    );
 }
 
 
